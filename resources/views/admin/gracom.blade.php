@@ -1,15 +1,15 @@
 @include('layouts.admin.head')
-@section('titulo','Galeria')
+@section('titulo','Depoimentos')
 
 <main>
-    <h3>Galeria<div class="criar suave click"><span>Nova foto</span><i class="material-icons">add_circle</i></div></h3>
-    <div id="galerias" class="box">
+    <h3>Leads Gracom</h3>
+    <div id="depoimentos" class="box">
         <table id="tabela" class="stripe">
             <thead>
                 <tr>
                     <td>#</td>
-                    <td>Foto</td>
-                    <td>thumb</td>
+                    <td>Autor</td>
+                    <td>Tipo</td>
                     <td>Ações</td>
                 </tr>
             </thead>
@@ -23,21 +23,35 @@
     <div id="criar" class="content suave">
         <h4>Criar <i class="material-icons click suave fechar">close</i></h4>
         <form id="formCriar" enctype="multipart/form-data">
-            <label>Imagem (1350x500)</label>
-            <input type="file" name="galeria_imagem" required>
-            <label>Thumb</label>
-            <input type="file" name="galeria_thumb" required>
+            <label>Imagem</label>
+            <input type="file" name="depoimento_imagem" required>
+            <label>Frase</label>
+            <input type="text" name="depoimento_frase" placeholder="Depoimento" required>
+            <label>Autor</label>
+            <input type="text" name="depoimento_autor" placeholder="Autor" required>
+            <label>Tipo</label>
+            <select name="depoimento_tipo">
+                <option value="1">aluno</option>
+                <option value="2">franqueado</option>
+            </select>
             <button type="submit" class="click suave"><span>Salvar</span> <i class="material-icons">save</i></button>
         </form>
     </div>
     <div id="editar" class="content suave">
         <h4>Editar <i class="material-icons click suave fechar">close</i></h4>
         <form id="formEditar" enctype="multipart/form-data">
-            <input type="hidden" id="galeria_id">
-            <label>Imagem (1350x500)</label>
-            <input type="file" name="galeria_imagem" required>
-            <label>Thumb</label>
-            <input type="file" name="galeria_thumb" required>
+            <input type="hidden" id="depoimento_id">
+            <label>Imagem</label>
+            <input type="file" name="depoimento_imagem">
+            <label>Frase</label>
+            <input type="text" name="depoimento_frase" placeholder="Depoimento" required>
+            <label>Autor</label>
+            <input type="text" name="depoimento_autor" placeholder="Autor" required>
+            <label>Tipo</label>
+            <select name="depoimento_tipo">
+                <option value="1">aluno</option>
+                <option value="2">franqueado</option>
+            </select>
             <button type="submit" class="click suave"><span>Salvar</span> <i class="material-icons">save</i></button>
         </form>
     </div>
@@ -85,13 +99,13 @@
     function carregar(){
         table = $('#tabela').DataTable({
             ajax: {
-                url: '/admin/galeria-list',
+                url: '/admin/depoimentos-list',
                 dataSrc: ''
             },
             columns: [
-                {data: 'galeria_id', width: "60px", className: 'dt-body-center dt-head-center'},
-                {data: 'galeria_imagem'},
-                {data: 'galeria_thumb'},
+                {data: 'depoimento_id', width: "60px", className: 'dt-body-center dt-head-center'},
+                {data: 'depoimento_autor'},
+                {data: 'depoimento_tipo'},
                 {data: ''},
             ],
             columnDefs: [
@@ -126,13 +140,13 @@
         $(document).on("click", ".editar", function(){
             var data = table.row($(this).parents("tr")).data();
             $("#lateral, #editar").addClass("active");
-            consultar(data.galeria_id);
+            consultar(data.depoimento_id);
         });
 
         var delete_id;
         $(document).on("click", ".deletar", function(){
             var data = table.row($(this).parents("tr")).data();
-            delete_id = data.galeria_id;
+            delete_id = data.depoimento_id;
             $("#confirmar").addClass("active");
         });
 
@@ -151,13 +165,16 @@
 
     function consultar(id){
         request = $.ajax({
-            url: '/admin/galeria/' + id,
+            url: '/admin/depoimentos/' + id,
             type: 'get',
             error: function(){
                 alerta("Ocorreu um erro, atualize a página");
             },
             success: function(data, textStatus, xhr){
-                $('#formEditar #galeria_id').val(data.galeria_id);
+                $('#formEditar #depoimento_id').val(data.depoimento_id);
+                $('#formEditar input[name="depoimento_frase"]').val(data.depoimento_frase);
+                $('#formEditar input[name="depoimento_autor"]').val(data.depoimento_autor);
+                $('#formEditar select[name="depoimento_tipo"] option[value="'+data.depoimento_tipo+'"]').attr("selected", "selected");
             },
             complete: function(xhr, textStatus) {} 
         });
@@ -169,7 +186,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '/admin/galeria',
+            url: '/admin/depoimentos',
             data: form,
             type: 'post',
             contentType: false,
@@ -197,7 +214,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '/admin/galeria/' + $("#galeria_id").val(),
+            url: '/admin/depoimentos/' + $("#depoimento_id").val(),
             data: form,
             type: 'post',
             contentType: false,
@@ -223,7 +240,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '/admin/galeria/' + id,
+            url: '/admin/depoimentos/' + id,
             type: 'delete',
             error: function(){
                 alerta("Ocorreu um erro, atualize a página");

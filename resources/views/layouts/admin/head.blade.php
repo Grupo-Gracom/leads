@@ -13,7 +13,7 @@
     <meta name="msapplication-navbutton-color" content="#ffffff">
     <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="{{asset('assets/admin/images/icone.png')}}">
+    <link rel="shortcut icon" href="https://grupogracom.com.br/images/icon.png">
     <!-- css -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,6 +33,7 @@
 
 <body>
     @include('layouts.admin.nav')
+    @yield('conteudo')
     <!-- <div id="raiz"></div>
     <script>
         $("#raiz").load("menus", function(responseTxt, statusTxt, xhr){

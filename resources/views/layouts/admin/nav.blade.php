@@ -3,7 +3,7 @@
     <div class="logo">
         <a href="admin">
             <figure>
-                <img src="{{asset('assets/admin/images/logoGrupo.png')}}" alt="Logo grupo Gracom">
+                <img src="{{asset('assets/admin/images/logogrupo.png')}}" alt="Logo grupo Gracom">
             </figure>
         </a>
     </div>
@@ -13,19 +13,22 @@
                 <a href="/admin" class="suave">Dashboard</a>
             </li>
             <li>
-                <a href="/gracom" class="suave">Gracom</a>
+                <a href="admin/gracom" class="suave">Gracom</a>
             </li>
             <li>
-                <a href="/imugi" class="suave">Imugi</a>
+                <a href="#" class="suave">Imugi</a>
             </li>
             <li>
-                <a href="/tiamate" class="suave">Tiamate</a>
+                <a href="#" class="suave">Tiamate</a>
             </li>
             <li>
                 <a href="/admin/logout" class="suave">
                     Sair
                 </a>
             </li>
+            <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
         </ul>
     </nav>
     <div class="perfil">
