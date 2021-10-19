@@ -112,6 +112,14 @@ main .leads ul li figure img {height: 100%; display: block; margin: 0 auto;}
 main .leads ul li h6 {font-size: 16px;}
 main .leads ul li h6, main .leads ul li h2 { color: #888; text-align: center;}
 main .leads ul li:hover {border-color: #888;}
+
+main .estados ul {overflow: hidden; width: 100%; float: left;margin-bottom: 20px;}
+main .estados ul li { width: calc(15% - 17px); border: 2px solid #000; padding: 16px; float: left; margin-right: 16px; border-radius: 10px; box-sizing: border-box;}
+main .estados ul li h6 {font-size: 16px;}
+main .estados ul li h6, main .leads ul li h2 { color: #888; text-align: center;}
+main .estados ul li:hover {border-color: #888;}
+main .estados ul li h2 { color: #888; text-align: center; }
+
 main .btn{padding: 5px 20px; border-radius: 20px;}
 main .site{background-color: #e76a17;}
 main .midias{background-color: #c312f0;}

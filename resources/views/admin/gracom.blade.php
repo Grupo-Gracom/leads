@@ -35,11 +35,11 @@
                 {data: 'email'},
                 {data: 'telefone'},
                 {data: 'cidade'},
-                {data: null, className: 'dt-body-center dt-head-center',
+                {data: null,width: "160px", className: 'dt-body-center dt-head-center',
                     render: function ( data, type, row ) {
                         switch(row.como_conheceu){
                             case "1":
-                            $conheceu = "<span class='btn midias'>Site</span>";
+                            $conheceu = "<span class='btn site'>Site</span>";
                                 break;
                             case "2":
                             $conheceu = "<span class='btn midias'>Midias Digitais</span>";
@@ -57,7 +57,7 @@
                         return $conheceu;
                     }
                 },
-                {data: null, className: 'dt-body-center dt-head-center',
+                {data: null,width: "160px", className: 'dt-body-center dt-head-center',
                     render: function ( data, type, row ) {
                         if(row.status == 1){
                           return "<span class='btn nao-atendido'> não atendido</span>";

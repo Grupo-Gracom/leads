@@ -1,7 +1,7 @@
 <!-- DASHBOARD MENU -->
 <header>
     <div class="logo">
-        <a href="admin">
+        <a href="/admin">
             <figure>
                 <img src="{{asset('assets/admin/images/logogrupo.png')}}" alt="Logo grupo Gracom">
             </figure>
