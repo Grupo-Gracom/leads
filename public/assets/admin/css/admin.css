@@ -114,20 +114,20 @@ main .leads ul li h6, main .leads ul li h2 { color: #888; text-align: center;}
 main .leads ul li:hover {border-color: #888;}
 
 main .estados ul {overflow: hidden; width: 100%; float: left;margin-bottom: 20px;}
-main .estados ul li { width: calc(15% - 17px); border: 2px solid #000; padding: 16px; float: left; margin-right: 16px; border-radius: 10px; box-sizing: border-box;}
+main .estados ul li { width: calc(15% - 17px); border: 2px solid #000; margin-bottom: 20px; padding: 16px; float: left; margin-right: 16px; border-radius: 10px; box-sizing: border-box;}
 main .estados ul li h6 {font-size: 16px;}
 main .estados ul li h6, main .leads ul li h2 { color: #888; text-align: center;}
 main .estados ul li:hover {border-color: #888;}
 main .estados ul li h2 { color: #888; text-align: center; }
 
 main .btn{padding: 5px 20px; border-radius: 20px;}
-main .site{background-color: #e76a17;}
+main .site{background-color: rgb(158, 109, 224);}
 main .midias{background-color: #c312f0;}
-main .redes{background-color: #171be7;}
-main .outros{background-color: #439c07;}
+main .redes{background-color: rgb(63, 66, 236);}
+main .outros{background-color: #0acb8e;}
 main .indefinido{background-color: #e72517;}
 main .atendido{background-color: #17e721;}
-main .nao-atendido{background-color: #e72517;}
+main .nao-atendido{background-color:rgb(253, 81, 144);}
 main hr{border-color: #292929; margin-bottom: 25px;}
 .clear{clear: both;}
 #lateral{width: 100%;height: 100vh;position: fixed;top: 0;left: 0;z-index: 5000;opacity: 0;visibility: hidden;}

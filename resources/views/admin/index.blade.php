@@ -53,128 +53,11 @@
     <hr>
     <div class="estados">
         <h3>Leads Por Estado: {{date("M")}}</h3>
-        <ul>
-            <li class="suave">
-                <h6>Acre</h6>
-                <h2 id="total">-</h2>
-            </li>
-            <li class="suave">
+        <ul id="estados">
+            <!-- <li class="suave">
                 <h6 class="truncate">Alagoas</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Amapá</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Amazonas</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Bahia</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Ceará</h6>
-                <h2>-</h2>
-            </li>
-        </ul>
-        <ul>
-            
-            <li class="suave">
-                <h6>Espírito Santo</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Goiás</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Maranhão</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Mato Grosso</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Minas Gerais</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Pará</h6>
-                <h2>-</h2>
-            </li>
-        </ul>
-        <ul>
-            <li class="suave">
-                <h6>Paraíba</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Paraná</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Pernambuco</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Piauí</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Rio de Janeiro</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Rio Grande do Norte</h6>
-                <h2>-</h2>
-            </li>
-        </ul>
-        <ul>
-            <li class="suave">
-                <h6>Rio de Janeiro</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Rio Grande do Norte</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Rio Grande do Sul</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Rondônia</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Roraima</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Santa Catarina</h6>
-                <h2>-</h2>
-            </li>
-        </ul>
-        <ul>
-            <li class="suave">
-                <h6>São Paulo</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Sergipe</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Tocantins</h6>
-                <h2>-</h2>
-            </li>
-            <li class="suave">
-                <h6>Distrito Federal</h6>
-                <h2>-</h2>
-            </li>
+                <h2 data-estado="6">-</h2>
+            </li> -->
         </ul>
     </div>
     <div class="clear"></div>
@@ -201,6 +84,25 @@
       console.log("complete");
     });
 });
+    
+    function consultar(){
+        request = $.ajax({
+            url: 'https://gracomonline.com.br/leads-estado',
+            type: 'get',
+            error: function(){
+                alerta("Ocorreu um erro, atualize a página");
+            },
+            success: function(data, textStatus, xhr){
+            $.each(data, function (key, value) {
+                $("#estados").append('<li class="suave"><h6 class="truncate">'+value.estado_nome+'</h6><h2 data-estado="6">'+value.quantidade.length+'</h2></li>');
+               console.log();
+            });
+
+            },
+            complete: function(xhr, textStatus) {} 
+        });
+    }consultar();
+   
 </script>
 @endsection
 
