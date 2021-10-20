@@ -2,7 +2,9 @@
 @section('titulo','Leads Gracom')
 @section('conteudo')
 <main>
-    <h3>Leads Gracom</h3>
+    <h3>Leads Gracom
+    <input type="hidden" name="unidade" data-estado="{{ $unidade}}">
+    </h3>
     <div id="leads-gracom" class="box">
         <table id="tabela" class="stripe">
             <thead>
@@ -23,18 +25,20 @@
 </main>
 <script>
     var table;
+    var unidade =  $('input[name="unidade"]').attr("data-estado");
     function carregar(){
         table = $('#tabela').DataTable({
+            
             ajax: {
-                url: 'https://gracomonline.com.br/api-leads',
+                url: 'https://gracomonline.com.br/api-leads/'+ unidade,
                 dataSrc: ''
             },
             columns: [
                 {data: 'id', width: "60px", className: 'dt-body-center dt-head-center'},
-                {data: 'nome'},
-                {data: 'email'},
-                {data: 'telefone'},
-                {data: 'cidade'},
+                {data: 'nome',width: "120px"},
+                {data: 'email', width: "100px"},
+                {data: 'telefone', width: "100px"},
+                {data: 'estado.estado_nome', width: "120px"},
                 {data: null,width: "160px", className: 'dt-body-center dt-head-center',
                     render: function ( data, type, row ) {
                         switch(row.como_conheceu){

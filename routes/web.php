@@ -27,7 +27,7 @@ Route::middleware(['admin'])->group(function(){
             Route::get('/', 'AdminController@index');
             //DASHBOARD
             //Leads Gracom
-            Route::get('/gracom', 'ApiController@gracom');
+            Route::get('/gracom/{unidade?}', 'ApiController@gracom');
 
             Route::get('/logout', function(){
                 Auth::logout();

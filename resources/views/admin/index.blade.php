@@ -94,8 +94,7 @@
             },
             success: function(data, textStatus, xhr){
             $.each(data, function (key, value) {
-                $("#estados").append('<li class="suave"><h6 class="truncate">'+value.estado_nome+'</h6><h2 data-estado="6">'+value.quantidade.length+'</h2></li>');
-               console.log();
+                $("#estados").append('<a href="admin/gracom/'+value.id_estados+'"><li class="suave"><h6 class="truncate">'+value.estado_nome+'</h6><h2>'+value.quantidade.length+'</h2></li></a>');
             });
 
             },

@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    public function gracom(){
-        return view("admin.gracom");
+    public function gracom($unidade = null){
+        if($unidade){
+            return view("admin.gracom",compact('unidade'));
+        }else{
+            return view("admin.gracom",compact('unidade'));
+        }
+        
     }
 }
