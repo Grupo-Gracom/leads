@@ -13,7 +13,7 @@
                     <td>Nome</td>
                     <td>Email</td>
                     <td>Telefone</td>
-                    <td>cidade</td>
+                    <td>unidade</td>
                     <td>Como Conheceu</td>
                     <td>status</td>
                     <td>Data Cadastro</td>
@@ -38,7 +38,7 @@
                 {data: 'nome',width: "120px"},
                 {data: 'email', width: "100px"},
                 {data: 'telefone', width: "100px"},
-                {data: 'estado.estado_nome', width: "120px"},
+                {data: 'unidade.unidade_nome', width: "120px"},
                 {data: null,width: "160px", className: 'dt-body-center dt-head-center',
                     render: function ( data, type, row ) {
                         switch(row.como_conheceu){

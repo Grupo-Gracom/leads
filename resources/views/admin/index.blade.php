@@ -41,7 +41,7 @@
             </li>
             <li class="suave">
                 <h6 class="truncate">Leads Mês Atual</h6>
-                <h2>-</h2>
+                <h2 id="mesAtual">-</h2>
             </li>
             <li class="suave">
                 <h6>Leads Atendidos</h6>
@@ -76,6 +76,7 @@
      var quant = JSON.parse(data);
       document.getElementById("quantidade").innerHTML = quant;
       document.getElementById("total").innerHTML = quant;
+      document.getElementById("mesAtual").innerHTML = quant;
     })
     .fail(function() {
       console.log("error");
