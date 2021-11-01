@@ -24,11 +24,11 @@ Route::fallback(function () {
 Route::middleware(['admin'])->group(function(){
     Route::prefix("admin")->group(function(){
         Route::namespace("Admin")->group(function(){
-            Route::get('/', 'AdminController@index');
+            Route::get('/', 'AdminController@index')->name('admin');
             //DASHBOARD
             //Leads Gracom
-            Route::get('/gracom/{unidade?}', 'ApiController@gracom');
-
+            Route::get('/gracom/{unidade?}', 'ApiController@gracom')->name('gracom');
+            Route::get('/imugi/{unidade?}', 'ApiController@imugi')->name('imugi');
             Route::get('/logout', function(){
                 Auth::logout();
                 return Redirect::to('/login');

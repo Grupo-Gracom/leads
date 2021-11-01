@@ -15,4 +15,13 @@ class ApiController extends Controller
         }
         
     }
+
+    public function imugi($unidade = null){
+        if($unidade){
+            return view("admin.imugi",compact('unidade'));
+        }else{
+            return view("admin.imugi",compact('unidade'));
+        }
+        
+    }
 }

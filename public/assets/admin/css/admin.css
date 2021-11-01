@@ -35,6 +35,7 @@ header nav{float: left;margin-top: 18px;}
 header nav ul{display: flex;}
 header nav ul li{width: auto;position: relative;margin-right: 36px;}
 header nav ul li a{color: #666;display: block;font-size: 14px;height: 40px;line-height: 40px;position: relative;}
+header nav ul li .ativo{ color: #ffa825;}
 header nav ul li a:hover{color: white;}
 header nav ul li a.sub-menu{cursor: pointer;padding-right: 20px;}
 header nav ul li a.sub-menu::after{content:"";width: 7px;height: 7px;border: 2px solid transparent;border-bottom-color: #666;border-right-color: #666;position: absolute;top: calc(50% - 1px);right: 0;transform: translateY(-70%) rotate(45deg);}
@@ -113,6 +114,8 @@ main .leads ul li h6 {font-size: 16px;}
 main .leads ul li h6, main .leads ul li h2 { color: #888; text-align: center;}
 main .leads ul li:hover {border-color: #888;}
 
+main .leads ul li.ativo {border-color:#ffa825;}
+
 main .estados ul {overflow: hidden; width: 100%; float: left;margin-bottom: 20px;}
 main .estados ul li { width: calc(15% - 17px); border: 2px solid #000; margin-bottom: 20px; padding: 16px; float: left; margin-right: 16px; border-radius: 10px; box-sizing: border-box;}
 main .estados ul li h6 {font-size: 16px;}
@@ -130,20 +133,20 @@ main .atendido{background-color: #17e721;}
 main .nao-atendido{background-color:rgb(253, 81, 144);}
 main hr{border-color: #292929; margin-bottom: 25px;}
 .clear{clear: both;}
-#lateral{width: 100%;height: 100vh;position: fixed;top: 0;left: 0;z-index: 5000;opacity: 0;visibility: hidden;}
-#lateral.active{opacity: 1;visibility: visible;}
-#lateral .overlay{width: 100%;height: 100%;background-color: rgba(0, 0, 0, .7);position: absolute;top: 0;left: 0;z-index: 1;opacity: 0;visibility: hidden;transition-delay: .3s;}
-#lateral.active .overlay{opacity: 1;visibility: visible;}
-#lateral .content{min-width: 400px;height: 100%;overflow: auto;padding: 16px;box-sizing: border-box;background-color: #393a3f;position: absolute;top: 0;right: -100%;z-index: 2;transition-delay: .5s;transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);opacity: 0;visibility: hidden;}
-#lateral .content.active{right: 0%;opacity: 1;visibility: visible;}
-#lateral .content h4{height: 40px;line-height: 40px;font-size: 28px;font-weight: lighter;color: #FF8105;margin-bottom: 16px;position: relative;z-index: 5;}
-#lateral .content h4 i{float: right;line-height: 40px;width: 40px;border-radius: 20px;text-align: center;}
-#lateral .content h4 i:hover{color: #40434a;background-color: #FF8105;}
-#lateral .content form{width: 100%;overflow: hidden;}
-#lateral .content h6,
-#lateral .content form label{width: 100%;font-size: 16px;display: block;margin-bottom: 5px;color: #FF8105;}
-#lateral .content form input,
-#lateral .content form textarea,
+#lateral, #lateralImugi{width: 100%;height: 100vh;position: fixed;top: 0;left: 0;z-index: 5000;opacity: 0;visibility: hidden;}
+#lateral.active, #lateralImugi.active{opacity: 1;visibility: visible;}
+#lateral .overlay, #lateralImugi .overlay{width: 100%;height: 100%;background-color: rgba(0, 0, 0, .7);position: absolute;top: 0;left: 0;z-index: 1;opacity: 0;visibility: hidden;transition-delay: .3s;}
+#lateral.active .overlay, #lateralImugi.active .overlay{opacity: 1;visibility: visible;}
+#lateral .content, #lateralImugi .content{min-width: 400px;height: 100%;overflow: auto;padding: 16px;box-sizing: border-box;background-color: #393a3f;position: absolute;top: 0;right: -100%;z-index: 2;transition-delay: .5s;transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);opacity: 0;visibility: hidden;}
+#lateral .content.active, #lateralImugi .content.active{right: 0%;opacity: 1;visibility: visible;}
+#lateral .content h4, #lateralImugi .content h4{height: 40px;line-height: 40px;font-size: 28px;font-weight: lighter;color: #FFF;margin-bottom: 16px;position: relative;z-index: 5;}
+#lateral .content h4 i, #lateralImugi .content h4 i{float: right;line-height: 40px;width: 40px;border-radius: 20px;text-align: center;}
+#lateral .content h4 i:hover, #lateralImugi .content h4 i:hover{color: #40434a;background-color: #FF8105;}
+#lateral .content form, #lateralImugi .content form{width: 100%;overflow: hidden;}
+#lateral .content h6, #lateralImugi .content h6,
+#lateral .content form label, #lateralImugi .content form label{width: 100%;font-size: 16px;display: block;margin-bottom: 5px;color: #ffa825;}
+#lateral .content form input,#lateralImugi .content form input,
+#lateral .content form textarea, #lateralImugi .content form textarea,
 #lateral .content form select{width: 100%;display: block;border: 0;border-bottom: 2px solid #dedede;background-color: transparent;margin-bottom: 16px;height: 40px;box-sizing: border-box;padding: 0 10px;transition-duration: .2s;color: #dedede;}
 #lateral .content form select option{background-color: #40434a;}
 #lateral .content form input:focus,
@@ -172,7 +175,10 @@ main hr{border-color: #292929; margin-bottom: 25px;}
 #lateral .content .metade.esquerda{float: left;}
 #lateral .content .metade.direita{float: right;}
 #lateral .content .divider{width: 100%;height: 1px;background-color: #dedede;margin: 10px 0;}
+#lateral hr, #lateralImugi hr{border-color: #292929; margin-bottom: 30px; border-style: dashed;}
 
+#lateral h2, #lateralImugi h2{ margin-top: 10px; margin-bottom: 30px; color: #999;}
+#lateral .borda-unidade, #lateralImugi .borda-unidade{ color:#000; border-style:dashed}
 #lateral #visualizar .curso{width: 700px;float: left;margin-right: 32px;}
 #lateral #visualizar .curso_descricao{padding-top: 4px;}
 #lateral #visualizar .curso_descricao h3{margin-bottom: 16px}

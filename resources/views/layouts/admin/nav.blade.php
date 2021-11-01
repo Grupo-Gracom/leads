@@ -10,16 +10,16 @@
     <nav class="suave">
         <ul>
             <li>
-                <a href="/admin" class="suave">Dashboard</a>
+                <a href="{{route('admin')}}" class="suave @if(Route::current()->getName() == 'admin')ativo @endif">Dashboard</a>
             </li>
             <li>
-                <a href="admin/gracom" class="suave">Gracom</a>
+                <a href="{{route('gracom')}}" class="suave @if(Route::current()->getName() == 'gracom')ativo @endif">Gracom</a>
             </li>
             <li>
-                <a href="#" class="suave">Imugi</a>
+                <a href="{{route('imugi')}}" class="suave @if(Route::current()->getName() == 'imugi')ativo @endif">Imugi</a>
             </li>
             <li>
-                <a href="#" class="suave">Tiamate</a>
+                <a href="#" class="suave @if(Route::current()->getName() == 'tiamate')ativo @endif">Tiamate</a>
             </li>
             <li>
                 <a href="/admin/logout" class="suave">
