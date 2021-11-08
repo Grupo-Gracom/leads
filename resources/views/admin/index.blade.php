@@ -82,6 +82,7 @@
         <ul id="estadosImugi">
         </ul>
     </div>
+    <canvas id="graficoVolume"></canvas>
 </div>
 </main>
 <div id="lateral" class="suave">
@@ -105,6 +106,109 @@
 </div>
 
 <script>
+         var largura = $(window).width();
+            var tipo = "";
+            if(largura > 380){
+                tipo = "x";
+            }else{
+                tipo = "y";
+            }
+            var canvas = document.getElementById('graficoVolume').getContext('2d');
+            var grafico = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: 'teste',
+                    datasets: [{
+                        label: 'Total de Leads Gracom',
+                        data: '2',
+                        backgroundColor: 'rgba(253, 130, 0, .1)',
+                        borderColor: 'rgba(253, 130, 0, 1)',
+                        borderWidth: '2'
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
+                    },
+                    indexAxis: tipo,
+                }
+            });
+
+            $("#volumePeriodo").submit(function(e){
+                e.preventDefault();
+                $("#volumePeriodo button").prop("disabled", true);
+                $("#volumePeriodo button span").text("Carregando");
+                carregarPeriodo();
+            });
+
+            function carregarPeriodo(){
+                grafico.destroy();
+                var form = new FormData($("#volumePeriodo")[0]);
+                request = $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: 'unifp/carregar-periodo',
+                    data: form,
+                    type: 'post',
+                    contentType: false,
+                    processData: false,
+                    error: function(){
+                        alerta("Falha ao carregar dados");
+                        $("#volumePeriodo button").prop("disabled", false);
+                        $("#volumePeriodo button span").text("Pesquisar");
+                    }
+                });
+                request.done(function(response){
+                    
+                    $("#volumePeriodo button").prop('disabled', false);
+                    $("#volumePeriodo button span").text("Pesquisar");
+                    
+                    $(".total-iniciado").text(response.totalIniciado);
+                    $(".total-concluido").text(response.totalConcluido);
+                    $(".faturamento").text((response.totalConcluido * 59.90).toFixed(2));
+            
+                    var largura = $(window).width();
+                    var tipo = "";
+                    if(largura > 380){
+                        tipo = "x";
+                    }else{
+                        tipo = "y";
+                    }
+                    var canvas = document.getElementById('graficoVolume').getContext('2d');
+                    var grafico = new Chart(canvas, {
+                    type: 'bar',
+                    data: {
+                        labels: response.volumeLabels,
+                        datasets: [{
+                            label: 'Venda iniciada',
+                            data: response.volumeIniciado,
+                            backgroundColor: 'rgba(255, 255, 255, .1)',
+                            borderColor: 'rgba(255, 255, 255, 1)',
+                            borderWidth: '2'
+                        },
+                        {
+                            label: 'Venda concluída',
+                            data: response.volumeConcluido,
+                            backgroundColor: 'rgba(53, 190, 69, .1)',
+                            borderColor: 'rgba(53, 190, 69, 1)',
+                            borderWidth: '2'
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                            },
+                            indexAxis: tipo
+                        },
+                    }
+                });
+                });
+            }
+
     $(document).ready(function(){
         var qtd = document.getElementById("quantidade").value;
         var link = "https://gracomonline.com.br/quantidade";
