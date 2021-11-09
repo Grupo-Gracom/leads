@@ -3,7 +3,13 @@
 @section('conteudo')
 <main>
 <div class="leads">
-        <h3>Leads</h3>
+        <h3>Leads
+            <form id="Periodo">
+                <input type="date" name="data_inicio" placeholder="Data Inicial">
+                <input type="date" name="data_fim" placeholder="Data Final">
+                <button type="submit" class="suave click"><span class="mini-title upper">Pesquisar</span></button>
+            </form>
+        </h3>
         <ul>
             <a href="#" id="gracomInfo">
             <li class="suave ativo" id="logoGracom">
@@ -117,10 +123,10 @@
             var grafico = new Chart(canvas, {
                 type: 'bar',
                 data: {
-                    labels: 'teste',
+                    labels: <?php echo json_encode($mesLabels); ?>,
                     datasets: [{
                         label: 'Total de Leads Gracom',
-                        data: '2',
+                        data: '1',
                         backgroundColor: 'rgba(253, 130, 0, .1)',
                         borderColor: 'rgba(253, 130, 0, 1)',
                         borderWidth: '2'
@@ -136,16 +142,15 @@
                 }
             });
 
-            $("#volumePeriodo").submit(function(e){
+            $("#Periodo").submit(function(e){
                 e.preventDefault();
-                $("#volumePeriodo button").prop("disabled", true);
-                $("#volumePeriodo button span").text("Carregando");
-                carregarPeriodo();
+                $("#Periodo button").prop("disabled", true);
+                $("#Periodo button span").text("Carregando");
+                carregarPeriodo(grafico);
             });
 
-            function carregarPeriodo(){
-                grafico.destroy();
-                var form = new FormData($("#volumePeriodo")[0]);
+            function graficoPeriodo(grafico){
+                var form = new FormData($("#Periodo")[0]);
                 request = $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
