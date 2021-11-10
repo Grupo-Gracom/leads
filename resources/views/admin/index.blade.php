@@ -124,7 +124,7 @@
                 data: {
                     labels: <?php echo json_encode($volumeLabels); ?>,
                         datasets: [{
-                            label: 'Venda iniciada',
+                            label: 'Leads Mês',
                             data: <?php echo json_encode($volumeLabels); ?>,
                             backgroundColor: 'rgba(255, 255, 255, .1)',
                             borderColor: 'rgba(255, 255, 255, 1)',
@@ -337,15 +337,15 @@ $("#Periodo").submit(function(e){
                         
                 
                         var datasets = [{
-                                            label: 'Venda iniciada',
-                                            data: response.volumeIniciado,
-                                            backgroundColor: 'rgba(255, 255, 255, .1)',
-                                            borderColor: 'rgba(255, 255, 255, 1)',
+                                            label: 'Leads Mês',
+                                            data: response.quantidadeTotal,
+                                            backgroundColor: 'rgba(2, 2, 25, .1)',
+                                            borderColor: 'rgba(255, 255, 255, .3)',
                                             borderWidth: '2'
                                         }];
                         grafico.data.datasets = datasets;
                         grafico.data.labels = response.volumeLabels;
-                        grafico.update('active');
+                        grafico.update();
                         
                     });
                 }
