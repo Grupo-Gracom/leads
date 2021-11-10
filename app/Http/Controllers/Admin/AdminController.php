@@ -24,35 +24,30 @@ class AdminController extends Controller
     {
         if(Auth::check()){
             if(Auth::user()->cargo_id == 1){
+                $anoAtual = date("Y");
+        $mesAtual = date("m");
+        $diaAtual = date("d");
+        
+        $volumeLabels = [];
+            $period = new DatePeriod(
+                new DateTime($anoAtual.'-'.($mesAtual - 1)),
+                new DateInterval('P1D'),
+                new DateTime($anoAtual.'-'.$mesAtual)
+            );
 
-                return view("admin/index");
+        foreach ($period as $key => $value) {
+            $label = $value->format('Y-m-d');
+            array_push($volumeLabels, $value->format('d-m-Y'));
+
+        }
+
+                return view("admin.index", compact("volumeLabels"));
             }else{
                 return view("/");
             }
         }else{
            return redirect("login");
         }
-    }
 
-    public function teste(){
-        $anoAtual = date("Y");
-        $mesAtual = date("m");
-        $diaAtual = date("d");
-        
-        $mesLabels = [];
-        
-        $period = new DatePeriod(
-                new DateTime($anoAtual.'-'.$mesAtual),
-                new DateInterval('P1D'),
-                new DateTime($anoAtual.'-'.($mesAtual + 1))
-            );
-        
-        foreach ($period as $key => $value) {
-            $label = $value->format('Y-m-d');
-           // $iniciado = Assinatura::where("assinatura_data", "like", $label."%")->where("assinatura_status", 0)->where("unidade_id", Auth::user()->id)->count();
-            array_push($mesLabels, $value->format('d-m-Y'));
-        }
-
-        return view("admin/index", compact("mesLabels"));
     }
 }
