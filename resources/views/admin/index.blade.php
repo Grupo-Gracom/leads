@@ -119,27 +119,7 @@
                 tipo = "y";
             }
             var canvas = document.getElementById('graficoVolume').getContext('2d');
-            var grafico = new Chart(canvas, {
-                type: 'bar',
-                data: {
-                    labels: <?php echo json_encode($volumeLabels); ?>,
-                        datasets: [{
-                            label: 'Leads Mês',
-                            data: <?php echo json_encode($volumeLabels); ?>,
-                            backgroundColor: 'rgba(255, 255, 255, .1)',
-                            borderColor: 'rgba(255, 255, 255, 1)',
-                            borderWidth: '2'
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                        }
-                    },
-                    indexAxis: "x",
-                }
-            });
+            var grafico; 
             
 
             
@@ -335,20 +315,45 @@ $("#Periodo").submit(function(e){
                         // $(".total-iniciado").text(response.totalIniciado);
                         // $(".total-concluido").text(response.totalConcluido);
                         
-                
+                        grafico = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: response.quantidadeTotal,
+                        datasets: [{
+                            label: 'Leads Gracom ',
+                            data: response.volumeLabels,
+                            backgroundColor: 'rgba(255, 168, 37, .1)',
+                            borderColor: 'rgba(255, 168, 37, 1)',
+                            borderWidth: '2'
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
+                    },
+                    indexAxis: "x",
+                }
+            });
+
                         var datasets = [{
-                                            label: 'Leads Mês',
+                                            label: 'Leads Gracom',
                                             data: response.quantidadeTotal,
-                                            backgroundColor: 'rgba(2, 2, 25, .1)',
-                                            borderColor: 'rgba(255, 255, 255, .3)',
+                                            backgroundColor: 'rgba(255, 168, 37, .1)',
+                                            borderColor: 'rgba(255, 168, 37, 1)',
                                             borderWidth: '2'
                                         }];
                         grafico.data.datasets = datasets;
                         grafico.data.labels = response.volumeLabels;
+                       
+                       if(response){
                         grafico.update();
+                       }
+                       
                         
                     });
-                }
+                }carregarPeriodo(grafico);
 
    
 </script>
