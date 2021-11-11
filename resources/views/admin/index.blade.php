@@ -4,11 +4,6 @@
 <main>
 <div class="leads">
         <h3>Leads
-            <form id="Periodo">
-                <input type="date" name="data_inicio" placeholder="Data Inicial">
-                <input type="date" name="data_fim" placeholder="Data Final">
-                <button type="submit" class="suave click"><span class="mini-title upper">Pesquisar</span></button>
-            </form>
         </h3>
         <ul>
             <a href="#" id="gracomInfo">
@@ -51,10 +46,6 @@
                 <h6 class="truncate">Leads Mês Atual</h6>
                 <h2 id="mesAtual">-</h2>
             </li>
-            <li class="suave">
-                <h6>Leads Atendidos</h6>
-                <h2>-</h2>
-            </li>
         </ul>
     </div>
     <div class="clear"></div>
@@ -68,10 +59,6 @@
             <li class="suave">
                 <h6 class="truncate">Leads Mês Atual</h6>
                 <h2 id="mesAtualImugi">-</h2>
-            </li>
-            <li class="suave">
-                <h6>Leads Atendidos</h6>
-                <h2>-</h2>
             </li>
         </ul>
     </div>
@@ -88,7 +75,18 @@
         <ul id="estadosImugi">
         </ul>
     </div>
+    <h3><form id="Periodo">
+                <input type="date" name="data_inicio" placeholder="Data Inicial">
+                <input type="date" name="data_fim" placeholder="Data Final">
+                <button type="submit" class="suave click"><span class="mini-title upper">Pesquisar</span></button>
+            </form></h3>
     <canvas id="graficoVolume"></canvas>
+    <h3><form id="PeriodoImugi">
+                <input type="date" name="data_inicio" placeholder="Data Inicial">
+                <input type="date" name="data_fim" placeholder="Data Final">
+                <button type="submit" class="suave click"><span class="mini-title upper">Pesquisar</span></button>
+            </form></h3>
+    <canvas id="graficoVolumeImugi"></canvas>
 </div>
 </main>
 <div id="lateral" class="suave">
@@ -119,7 +117,9 @@
                 tipo = "y";
             }
             var canvas = document.getElementById('graficoVolume').getContext('2d');
-            var grafico; 
+            var grafico;
+            var canvas2 = document.getElementById('graficoVolumeImugi').getContext('2d');
+            var grafico2; 
             
 
             
@@ -132,11 +132,10 @@
       dataType: 'json',
 
     })
-    .done(function(data) {
-     var quant = JSON.parse(data);
-      document.getElementById("quantidade").innerHTML = quant;
-      document.getElementById("total").innerHTML = quant;
-      document.getElementById("mesAtual").innerHTML = quant;
+    .done(function(response) {
+      document.getElementById("quantidade").innerHTML = response.quantidadeTotal;
+      document.getElementById("total").innerHTML = response.quantidadeTotal;
+      document.getElementById("mesAtual").innerHTML = response.quantidadeMes;
     })
     .fail(function() {
       console.log("error");
@@ -149,6 +148,8 @@
 $(document).ready(function(){
     $("#PanelImugi").hide();
     $("#estadoImugi").hide();
+    $("#PeriodoImugi").hide();
+    $("#graficoVolumeImugi").hide();
         var qtd = document.getElementById("quantidade").value;
         var link = "https://site.imugi.com.br/quantidade";
   $.ajax({
@@ -157,11 +158,10 @@ $(document).ready(function(){
       dataType: 'json',
 
     })
-    .done(function(data) {
-     var quantImugi = JSON.parse(data);
-      document.getElementById("quantidadeImugi").innerHTML = quantImugi;
-        document.getElementById("totalImugi").innerHTML = quantImugi;
-        document.getElementById("mesAtualImugi").innerHTML = quantImugi;
+    .done(function(response) {
+      document.getElementById("quantidadeImugi").innerHTML = response.quantidadeTotal;
+        document.getElementById("totalImugi").innerHTML = response.quantidadeTotal;
+        document.getElementById("mesAtualImugi").innerHTML = response.quantidadeMes;
     })
     .fail(function() {
       console.log("error");
@@ -271,6 +271,11 @@ $(document).ready(function(){
         $("#estadoImugi").show();
         $("#PanelGracom").hide();
         $("#estadoGracom").hide();
+        $("#graficoVolumeImugi").show();
+        $("#graficoVolume").hide();
+        $("#PeriodoImugi").show();
+        $("#Periodo").hide();
+
 });
 $( "#gracomInfo" ).click(function() {
         $("#logoGracom").addClass("ativo");
@@ -280,6 +285,10 @@ $( "#gracomInfo" ).click(function() {
         $("#estadoGracom").show();
         $("#PanelImugi").hide();
         $("#estadoImugi").hide();
+        $("#graficoVolume").show();
+        $("#graficoVolumeImugi").hide();
+        $("#PeriodoImugi").hide();
+        $("#PeriodoGracom").show();
 });
 
 $("#Periodo").submit(function(e){
@@ -287,6 +296,13 @@ $("#Periodo").submit(function(e){
                     $("#Periodo button").prop("disabled", true);
                     $("#Periodo button span").text("Carregando");
                     carregarPeriodo(grafico);
+                });
+
+$("#PeriodoImugi").submit(function(e){
+                    e.preventDefault();
+                    $("#PeriodoImugi button").prop("disabled", true);
+                    $("#PeriodoImugi button span").text("Carregando");
+                    carregarPeriodoImugi(grafico2);
                 });
 
 
@@ -354,6 +370,70 @@ $("#Periodo").submit(function(e){
                         
                     });
                 }carregarPeriodo(grafico);
+
+                function carregarPeriodoImugi(grafico2){
+                    var form = new FormData($("#PeriodoImugi")[0]);
+                    request = $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: 'https://site.imugi.com.br/consultar-periodo',
+                        data: form,
+                        type: 'post',
+                        contentType: false,
+                        processData: false,
+                        error: function(){
+                            alerta("Falha ao carregar dados");
+                            $("#PeriodoImugi button").prop("disabled", false);
+                            $("#PeriodoImugi button span").text("Pesquisar");
+                        }
+                    });
+                    request.done(function(response){
+                        
+                        $("#PeriodoImugi button").prop('disabled', false);
+                        $("#PeriodoImugi button span").text("Pesquisar");
+                        
+                        // $(".total-iniciado").text(response.totalIniciado);
+                        // $(".total-concluido").text(response.totalConcluido);
+                        
+                        grafico2 = new Chart(canvas2, {
+                type: 'bar',
+                data: {
+                    labels: response.volumeLabels,
+                        datasets: [{
+                            label: 'Leads Imugi ',
+                            data: response.quantidadeTotal,
+                            backgroundColor: 'rgba(53, 190, 69, .1)',
+                            borderColor: 'rgba(53, 190, 69, 1)',
+                            borderWidth: '2'
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
+                    },
+                    indexAxis: "x",
+                }
+            });
+
+                        var datasets2 = [{
+                                            label: 'Leads Imugi',
+                                            data: response.quantidadeTotal,
+                                            backgroundColor: 'rgba(53, 190, 69, .1)',
+                            borderColor: 'rgba(53, 190, 69, 1)',
+                                            borderWidth: '2'
+                                        }];
+                        grafico2.data.datasets = datasets2;
+                        grafico2.data.labels = response.volumeLabels;
+                       
+                       if(response){
+                        grafico2.update();
+                       }
+                       
+                    });
+                }carregarPeriodoImugi(grafico2);
 
    
 </script>

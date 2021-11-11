@@ -15,7 +15,6 @@
                     <td>Telefone</td>
                     <td>unidade</td>
                     <td>Como Conheceu</td>
-                    <td>status</td>
                     <td>Data Cadastro</td>
                 </tr>
             </thead>
@@ -30,7 +29,7 @@
         table = $('#tabela').DataTable({
             
             ajax: {
-                url: 'https://gracomonline.com.br/api-leads/'+ unidade,
+                url: 'https://gracomonline.com.br/api-leads'+ unidade,
                 dataSrc: ''
             },
             columns: [
@@ -59,15 +58,6 @@
                             $conheceu = "<span class='btn indefinido'> Indefinido</span>";
                         }
                         return $conheceu;
-                    }
-                },
-                {data: null,width: "160px", className: 'dt-body-center dt-head-center',
-                    render: function ( data, type, row ) {
-                        if(row.status == 1){
-                          return "<span class='btn nao-atendido'> não atendido</span>";
-                      }else{
-                          return "<span class='btn atendido'> atendido</span>";
-                      }
                     }
                 },
                 {data: null, className: 'dt-body-center dt-head-center',
